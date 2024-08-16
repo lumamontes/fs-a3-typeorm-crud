@@ -8,19 +8,16 @@ import {
 import { Post } from "./Post";
 
 @Entity()
-@Unique(["firstName"])
+@Unique(["email"])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  firstName: string;
+  name: string;
 
   @Column()
-  lastName: string;
-
-  @Column()
-  age: number;
+  email: string;
 
   @OneToMany(() => Post, (post) => post.user, { cascade: true })
   posts: Post[];
