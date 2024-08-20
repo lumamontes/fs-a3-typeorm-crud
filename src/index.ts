@@ -2,8 +2,13 @@ import * as express from "express";
 import { AppDataSource } from "./data-source";
 import userRoutes from "./routes/users";
 import authorRoutes from "./routes/authors";
+import { Comment } from "./entity/Comment";
+import { User } from "./entity/User";
+import { Not } from "typeorm";
+import { Post } from "./entity/Post";
 
-AppDataSource.initialize().then((connection) => {
+AppDataSource.initialize()
+  .then((connection) => {
     const app = express();
     console.log("Iniciando servidor...");
     app.use(express.json());
@@ -31,7 +36,7 @@ AppDataSource.initialize().then((connection) => {
 //   .then(async () => {
 //     console.log("Loading users from the database...");
 //     const users = await AppDataSource.manager.find(User);
-//     console.log("Loaded users: ", users); 
+//     console.log("Loaded users: ", users);
 
 //     for (const user of users) {
 //       const userDeleted = await AppDataSource.manager.delete(User, user.id);
@@ -131,7 +136,6 @@ AppDataSource.initialize().then((connection) => {
 //           .getMany();
 //     console.log("All users with post: ", allUsersWithPost);
 
-
 //     console.log("Using query builder for inner join ... ");
 //     const allUsersWithPostInner = await AppDataSource.createQueryBuilder(User, "user")
 //           .innerJoinAndSelect("user.posts", "posts")
@@ -161,3 +165,56 @@ AppDataSource.initialize().then((connection) => {
 
 //   })
 //   .catch((error) => console.log(error));
+
+
+// AppDataSource.initialize().then(async () => {
+//   console.log("leftJoinComments")
+//   const leftJoinComments = await AppDataSource.manager?.find(User, {
+//     where: {
+//       name: Not("JOSE"),
+//     },
+//     relations: {
+//       comments: true,
+//     },
+//   });
+//   console.log(leftJoinComments)
+
+//   console.log("selectJoinComments")
+//   const selectJoinComments = await AppDataSource.manager?.find(User, {
+//     where: {
+//       name: Not("JOSE"),
+//     },
+//     relations: {
+//       comments: true,
+//     },
+//     relationLoadStrategy: "query"
+//   });
+//   console.log(selectJoinComments)
+
+//   console.log("innerJoinComments")
+//   const innerJoinComments = await AppDataSource.manager?.find(User, {
+//     where: {
+//       name: Not("JOSE"),
+//       comments: {
+//         id: Not(0)
+//       }
+//     },
+//     relations: {
+//       comments: true,
+//     },
+//   });
+//   console.log(innerJoinComments)
+
+//   const findPostUser = await AppDataSource.manager?.findOne(User, {
+//     where: {
+//       id: 2
+//     }
+//   })
+
+//   const comment1 = new Comment()
+//   comment1.text = 'post comment'
+//   comment1.user = findPostUser
+
+//   const commentCreate = await AppDataSource.manager.save(comment1)
+// }).catch(error => console.log(error))
+

@@ -6,6 +6,7 @@ import {
   Unique,
 } from "typeorm";
 import { Post } from "./Post";
+import { Comment } from "./Comment";
 
 @Entity()
 @Unique(["email"])
@@ -21,4 +22,8 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.user, { cascade: true })
   posts: Post[];
+
+
+  @OneToMany(() => Comment, (comment) => comment.user, { cascade: true })
+  comments: Comment[];
 }
