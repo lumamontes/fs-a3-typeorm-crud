@@ -18,7 +18,4 @@ export class User {
 
   @Column()
   email: string;
-
-  @OneToMany(() => Post, (post) => post.user, { cascade: true })
-  posts: Post[];
 }

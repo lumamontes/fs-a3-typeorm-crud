@@ -2,12 +2,15 @@ import * as express from "express";
 import { AppDataSource } from "./data-source";
 import userRoutes from "./routes/users";
 import authorRoutes from "./routes/authors";
+import postRoutes from "./routes/posts";
 
-AppDataSource.initialize().then((connection) => {
+AppDataSource.initialize()
+  .then((connection) => {
     const app = express();
     console.log("Iniciando servidor...");
     app.use(express.json());
     app.use("/api", userRoutes, authorRoutes);
+    app.use("/api", userRoutes, postRoutes);
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
@@ -31,7 +34,7 @@ AppDataSource.initialize().then((connection) => {
 //   .then(async () => {
 //     console.log("Loading users from the database...");
 //     const users = await AppDataSource.manager.find(User);
-//     console.log("Loaded users: ", users); 
+//     console.log("Loaded users: ", users);
 
 //     for (const user of users) {
 //       const userDeleted = await AppDataSource.manager.delete(User, user.id);
@@ -130,7 +133,6 @@ AppDataSource.initialize().then((connection) => {
 //           .where("user.firstName = :name", { name: "John" })
 //           .getMany();
 //     console.log("All users with post: ", allUsersWithPost);
-
 
 //     console.log("Using query builder for inner join ... ");
 //     const allUsersWithPostInner = await AppDataSource.createQueryBuilder(User, "user")

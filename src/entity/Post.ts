@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./User";
+import { Author } from "./Author";
 
 @Entity()
 export class Post {
@@ -12,8 +12,8 @@ export class Post {
   @Column()
   text: string;
 
-  @ManyToOne(() => User, (user) => user.posts, {
+  @ManyToOne(() => Author, (author) => author.posts, {
     onDelete: "CASCADE",
   })
-  user: User;
+  author: Author;
 }
