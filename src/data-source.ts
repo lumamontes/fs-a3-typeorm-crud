@@ -8,7 +8,7 @@ import { Migration1724298601877 } from "./migration/1724298601877-migration";
 import { AddCommentsFromUser1724110831381 } from "./migration/1724110831381-addCommentsFromUser";
 import { AddCommentsToPost1724113847076 } from "./migration/1724113847076-addCommentsToPost";
 import { AddCascate1724181614396 } from "./migration/1724181614396-addCascate";
-import { Migration1724299755076 } from "./1724299755076-migration";
+import { Migration1724299755076 } from "./migration/1724299755076-migration";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",
