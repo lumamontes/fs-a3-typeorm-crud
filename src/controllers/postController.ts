@@ -2,13 +2,17 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { Post } from "../entity/Post";
 import { Author } from "../entity/Author";
+import { Comment } from "../entity/Comment";
 
 const PostRepository = AppDataSource.getRepository(Post);
 const AuthorRepository = AppDataSource.getRepository(Author);
+const CommentRepository = AppDataSource.getRepository(Comment);
 
 const findAll = async (req: Request, res: Response) => {
   try {
-    const posts = await PostRepository.find({ relations: ["author"] });
+    const posts = await PostRepository.find({
+      relations: ["author", "comments", "comments.author"],
+    });
     res.json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -25,7 +29,7 @@ const findById = async (req: Request, res: Response) => {
 
     const post = await PostRepository.findOne({
       where: { id },
-      relations: ["author"],
+      relations: ["author", "comments", "comments.author"],
     });
 
     if (!post) {
@@ -117,8 +121,11 @@ const update = async (req: Request, res: Response) => {
 
 const deletePost = async (req: Request, res: Response) => {
   try {
-    const post = await PostRepository.findOneBy({
-      id: parseInt(req.params.id),
+    const post = await PostRepository.findOne({
+      where: {
+        id: parseInt(req.params.id),
+      },
+      relations: ["comments"],
     });
 
     if (!post) {

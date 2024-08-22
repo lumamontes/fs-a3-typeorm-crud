@@ -20,13 +20,9 @@ export class Post {
   @Column()
   text: string;
 
-  @ManyToOne(() => Author, (author) => author.posts, {
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(() => Author, (author) => author.posts, { onDelete: "CASCADE" })
   author: Author;
 
-  @OneToMany(() => Comment, (comment) => comment.post, {
-    onDelete: "CASCADE",
-  })
+  @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 }

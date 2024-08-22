@@ -15,9 +15,11 @@ export class Author extends User {
   @Column()
   completeName: string;
 
-  @OneToMany(() => Post, (post) => post.author, { cascade: true })
+  @OneToMany(() => Post, (post) => post.author, { onDelete: "CASCADE" })
   posts: Post[];
 
-  @OneToMany(() => Comment, (comment) => comment.author, { cascade: true })
+  @OneToMany(() => Comment, (comment) => comment.author, {
+    onDelete: "CASCADE",
+  })
   comments: Comment[];
 }
