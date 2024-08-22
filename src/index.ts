@@ -2,6 +2,7 @@ import * as express from "express";
 import { AppDataSource } from "./data-source";
 import userRoutes from "./routes/users";
 import authorRoutes from "./routes/authors";
+import commentRoutes from "./routes/comments";
 import { Comment } from "./entity/Comment";
 import { User } from "./entity/User";
 import { Not } from "typeorm";
@@ -12,7 +13,7 @@ AppDataSource.initialize()
     const app = express();
     console.log("Iniciando servidor...");
     app.use(express.json());
-    app.use("/api", userRoutes, authorRoutes);
+    app.use("/api", userRoutes, authorRoutes, commentRoutes);
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
