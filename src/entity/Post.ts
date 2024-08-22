@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { User } from "./User";
 import { Comment } from "./Comment";
+import { Author } from "./Author";
 
 @Entity()
 export class Post {
@@ -19,13 +20,9 @@ export class Post {
   @Column()
   text: string;
 
-  @ManyToOne(() => User, (user) => user.posts, {
-    onDelete: "CASCADE",
-  })
-  user: User;
+  @ManyToOne(() => Author, (author) => author.posts, { onDelete: "CASCADE" })
+  author: Author;
 
-  @OneToMany(() => Comment, (comment) => comment.post, {
-    onDelete: "CASCADE",
-  })
+  @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 }

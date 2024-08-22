@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./User";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Post } from "./Post";
+import { Author } from "./Author";
 
 @Entity()
 export class Comment {
@@ -10,11 +10,9 @@ export class Comment {
   @Column()
   text: string;
 
-  @ManyToOne(() => User, (user) => user.comments, {
-    onDelete: "CASCADE",
-  })
-  user: User;
+  @ManyToOne(() => Author, (author) => author.comments, { onDelete: "CASCADE" })
+  author: Author;
 
-  @ManyToOne(() => Post, (post) => post.comments, { cascade: true })
+  @ManyToOne(() => Post, (post) => post.comments, { onDelete: "CASCADE" })
   post: Post;
 }

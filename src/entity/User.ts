@@ -2,7 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   Unique,
 } from "typeorm";
 import { Post } from "./Post";
@@ -19,11 +18,4 @@ export class User {
 
   @Column()
   email: string;
-
-  @OneToMany(() => Post, (post) => post.user, { cascade: true })
-  posts: Post[];
-
-
-  @OneToMany(() => Comment, (comment) => comment.user, { cascade: true })
-  comments: Comment[];
 }
