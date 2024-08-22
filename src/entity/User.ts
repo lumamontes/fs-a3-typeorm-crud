@@ -5,6 +5,7 @@ import {
   Unique,
 } from "typeorm";
 import { Post } from "./Post";
+import { Comment } from "./Comment";
 
 @Entity()
 @Unique(["email"])
