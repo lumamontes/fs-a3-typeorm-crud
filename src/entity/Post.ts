@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { User } from "./User";
+import { Comment } from "./Comment";
 import { Author } from "./Author";
 
 @Entity()
@@ -16,4 +24,9 @@ export class Post {
     onDelete: "CASCADE",
   })
   author: Author;
+
+  @OneToMany(() => Comment, (comment) => comment.post, {
+    onDelete: "CASCADE",
+  })
+  comments: Comment[];
 }

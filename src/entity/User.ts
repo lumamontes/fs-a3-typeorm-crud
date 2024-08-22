@@ -2,7 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   Unique,
 } from "typeorm";
 import { Post } from "./Post";
